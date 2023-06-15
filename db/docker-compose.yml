@@ -19,10 +19,4 @@ services:
     expose:
       # Opens port 3306 on the container
       - '3306'
-      # Where our data will be persisted
-    volumes:
-      - ./initialize_db/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
-# Names our volume
-volumes:
-  initialize_db:
 
