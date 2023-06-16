@@ -22,6 +22,9 @@ public class UserController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    EmployeeService employeeService;
+
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
 
@@ -46,12 +49,22 @@ public class UserController {
 
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        throw new UnsupportedOperationException();
+        //save an employee using the employee service
+        Employee employee = convertEmployeeDTOToEmployee(employeeDTO);
+        Employee savedEmployee = employeeService.save(employee);
+
+        //convert the saved employee to an employeeDTO and return it
+        return convertEmployeeToEmployeeDTO(savedEmployee);
     }
 
     @PostMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+
+        //find an employee by id using the employee service
+        Employee employee = employeeService.find(employeeId);
+
+        //convert the employee to an employeeDTO and return it
+        return convertEmployeeToEmployeeDTO(employee);
     }
 
     @PutMapping("/employee/{employeeId}")
@@ -101,6 +114,40 @@ public class UserController {
             customerDTOs.add(customerDTO);
         }
         return customerDTOs;
+    }
+
+    // create convertEmployeeDTOToEmployee
+
+    public Employee convertEmployeeDTOToEmployee(EmployeeDTO employeeDTO){
+        // create an employee
+        Employee employee = new Employee();
+        // set the employee's id
+        employee.setId(employeeDTO.getId());
+        // set the employee's name
+        employee.setName(employeeDTO.getName());
+        // set the employee's skills
+        employee.setSkills(employeeDTO.getSkills());
+        // set the employee's daysAvailable
+        employee.setDaysAvailable(employeeDTO.getDaysAvailable());
+        // return the employee
+        return employee;
+    }
+
+    // create convertEmployeeToEmployeeDTO
+
+    public EmployeeDTO convertEmployeeToEmployeeDTO(Employee employee){
+        // create an employeeDTO
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        // set the employeeDTO's id
+        employeeDTO.setId(employee.getId());
+        // set the employeeDTO's name
+        employeeDTO.setName(employee.getName());
+        // set the employeeDTO's skills
+        employeeDTO.setSkills(employee.getSkills());
+        // set the employeeDTO's daysAvailable
+        employeeDTO.setDaysAvailable(employee.getDaysAvailable());
+        // return the employeeDTO
+        return employeeDTO;
     }
 
 }
