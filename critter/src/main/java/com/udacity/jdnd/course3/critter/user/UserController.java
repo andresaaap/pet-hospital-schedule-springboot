@@ -111,6 +111,14 @@ public class UserController {
             customerDTO.setName(customer.getName());
             customerDTO.setNotes(customer.getNotes());
             customerDTO.setPhoneNumber(customer.getPhoneNumber());
+            // List of Pets to List of PetIds
+            List<Pet> pets = customer.getPets();
+            if (pets != null) {
+                List<Long> petIds = convertPetListToPetIdList(customer.getPets());
+                // set the customerDTO's petIds
+                customerDTO.setPetIds(petIds);
+            }
+
             customerDTOs.add(customerDTO);
         }
         return customerDTOs;
@@ -148,6 +156,16 @@ public class UserController {
         employeeDTO.setDaysAvailable(employee.getDaysAvailable());
         // return the employeeDTO
         return employeeDTO;
+    }
+
+    // create method to convert a list of pets to a list of petIds
+    public List<Long> convertPetListToPetIdList(List<Pet> pets) {
+        List<Long> petIds = new ArrayList<Long>();
+        for (int i = 0; i < pets.size(); i++) {
+            Pet pet = pets.get(i);
+            petIds.add(pet.getId());
+        }
+        return petIds;
     }
 
 }

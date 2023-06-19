@@ -16,8 +16,8 @@ public class Customer {
     private String phoneNumber;
     private String notes;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<Pet> pets;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Pet> pets;
 
     public Customer() {
     }
@@ -67,13 +67,13 @@ public class Customer {
 
     // get petIds
 
-    public Set<Pet> getPets(){
+    public List<Pet> getPets(){
         return pets;
     }
 
     // set petIds
 
-    public void setPets(Set<Pet> pets){
+    public void setPets(List<Pet> pets){
         this.pets = pets;
     }
 }

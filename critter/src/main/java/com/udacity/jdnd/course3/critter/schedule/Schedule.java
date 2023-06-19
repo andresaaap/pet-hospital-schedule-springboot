@@ -6,6 +6,7 @@ import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class Schedule {
     joinColumns = @JoinColumn(name = "schedule_id"),
     inverseJoinColumns = @JoinColumn(name = "pet_id"))
     private List<Pet> pets;
-    private Timestamp date;
+    private LocalDate date;
 
     @ElementCollection
     private Set<EmployeeSkill> activities;
@@ -36,7 +37,7 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(List<Employee> employees, List<Pet> pets, Timestamp date, Set<EmployeeSkill> activities) {
+    public Schedule(List<Employee> employees, List<Pet> pets, LocalDate date, Set<EmployeeSkill> activities) {
         this.employees = employees;
         this.pets = pets;
         this.date = date;
@@ -55,7 +56,7 @@ public class Schedule {
         return pets;
     }
 
-    public Timestamp getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -75,7 +76,7 @@ public class Schedule {
         this.pets = pets;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

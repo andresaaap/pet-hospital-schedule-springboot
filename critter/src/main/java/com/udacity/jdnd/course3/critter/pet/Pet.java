@@ -4,6 +4,8 @@ import com.udacity.jdnd.course3.critter.schedule.Schedule;
 import com.udacity.jdnd.course3.critter.user.Customer;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -17,7 +19,7 @@ public class Pet {
     @JoinColumn(name="customer_id", nullable=false)
     private Customer customer;
 
-    private String birthDate;
+    private LocalDate birthDate;
     private String notes;
 
     @ManyToMany
@@ -30,7 +32,7 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(PetType type, String name, Customer customer, String birthDate, String notes) {
+    public Pet(PetType type, String name, Customer customer, LocalDate birthDate, String notes) {
         this.type = type;
         this.name = name;
         this.customer = customer;
@@ -54,7 +56,7 @@ public class Pet {
         return customer;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
@@ -78,7 +80,7 @@ public class Pet {
         this.customer = customer;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
