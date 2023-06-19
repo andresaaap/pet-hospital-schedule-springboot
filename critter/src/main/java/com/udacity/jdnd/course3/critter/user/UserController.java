@@ -44,7 +44,12 @@ public class UserController {
 
     @GetMapping("/customer/pet/{petId}")
     public CustomerDTO getOwnerByPet(@PathVariable long petId){
-        throw new UnsupportedOperationException();
+
+        //find the owner of a pet using the customer service
+        Customer customer = customerService.findByOwnerByPetId(petId);
+
+        //convert the customer to a customerDTO and return it
+        return convertCustomerToCustomerDTO(customer);
     }
 
     @PostMapping("/employee")
@@ -97,6 +102,14 @@ public class UserController {
         customerDTO.setName(customer.getName());
         customerDTO.setNotes(customer.getNotes());
         customerDTO.setPhoneNumber(customer.getPhoneNumber());
+
+        // List of Pets to List of PetIds
+        List<Pet> pets = customer.getPets();
+        if (pets != null) {
+            List<Long> petIds = convertPetListToPetIdList(customer.getPets());
+            // set the customerDTO's petIds
+            customerDTO.setPetIds(petIds);
+        }
 
         return customerDTO;
     }

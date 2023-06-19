@@ -27,4 +27,9 @@ public class CustomerService {
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
+
+    // create findByOwnerByPetId
+    public Customer findByOwnerByPetId(Long petId) {
+        return customerRepository.findByOwnerByPetId(petId);
+    }
 }

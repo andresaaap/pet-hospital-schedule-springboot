@@ -25,4 +25,12 @@ public class CustomerRepository {
     public List<Customer> findAll() {
         return entityManager.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
     }
+
+    // create findByOwnerByPetId
+    public Customer findByOwnerByPetId(Long petId) {
+        return entityManager.createQuery("SELECT c FROM Customer c JOIN c.pets p WHERE p.id = :petId", Customer.class)
+                .setParameter("petId", petId)
+                .getSingleResult();
+    }
+
 }
