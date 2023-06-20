@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -28,5 +30,11 @@ public class EmployeeService {
         Employee employee = employeeRepository.find(employeeId);
         employee.setDaysAvailable(daysAvailable);
         employeeRepository.save(employee);
+    }
+
+    // findEmployeesForService
+    public List<Employee> findEmployeesForService(LocalDate date, Set<EmployeeSkill> skills) {
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        return employeeRepository.findEmployeesForService(skills, dayOfWeek);
     }
 }

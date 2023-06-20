@@ -81,7 +81,12 @@ public class UserController {
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        throw new UnsupportedOperationException();
+
+            //find employees by availability and skills using the employee service
+            List<Employee> employees = employeeService.findEmployeesForService(employeeDTO.getDate(), employeeDTO.getSkills());
+
+            //convert the employees to employeeDTOs and return them
+            return convertEmployeeListToEmployeeDTOList(employees);
     }
 
     // create convertCustomerDTOToCustomer
@@ -181,6 +186,21 @@ public class UserController {
             petIds.add(pet.getId());
         }
         return petIds;
+    }
+
+    // create method to convert a list of employees to a list of employeeDTOs
+    public List<EmployeeDTO> convertEmployeeListToEmployeeDTOList(List<Employee> employees) {
+        List<EmployeeDTO> employeeDTOs = new ArrayList<>();
+        for (int i = 0; i < employees.size(); i++) {
+            Employee employee = employees.get(i);
+            EmployeeDTO employeeDTO = new EmployeeDTO();
+            employeeDTO.setId(employee.getId());
+            employeeDTO.setName(employee.getName());
+            employeeDTO.setSkills(employee.getSkills());
+            employeeDTO.setDaysAvailable(employee.getDaysAvailable());
+            employeeDTOs.add(employeeDTO);
+        }
+        return employeeDTOs;
     }
 
 }

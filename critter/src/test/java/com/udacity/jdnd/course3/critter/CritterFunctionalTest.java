@@ -168,6 +168,8 @@ public class CritterFunctionalTest {
 
         Set<Long> eIds2 = userController.findEmployeesForService(er2).stream().map(EmployeeDTO::getId).collect(Collectors.toSet());
         Set<Long> eIds2expected = Sets.newHashSet(emp3n.getId());
+        //print values in eIds2expected
+        System.out.println("eIds2expected: " + eIds2expected);
         Assertions.assertEquals(eIds2, eIds2expected);
     }
 
