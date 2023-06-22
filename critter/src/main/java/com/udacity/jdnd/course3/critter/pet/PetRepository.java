@@ -31,4 +31,10 @@ public class PetRepository {
                 .setParameter("customerId", customerId)
                 .getResultList();
     }
+
+    //Find all pets
+    public List<Pet> findAll() {
+        return entityManager.createQuery("select p from Pet p", Pet.class)
+                .getResultList();
+    }
 }
