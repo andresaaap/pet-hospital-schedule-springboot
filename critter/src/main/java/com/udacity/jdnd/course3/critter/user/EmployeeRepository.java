@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-@Transactional
 public class EmployeeRepository {
 
     // Create entity manager
